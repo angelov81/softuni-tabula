@@ -17,7 +17,10 @@ public class AnnouncementController {
   //TODO: Role user
   @GetMapping
   public String announcement(Model model) {
-    //
-    return null;
+
+    model.addAttribute("announcements",
+        announcementService.findAll());
+
+    return "announcement/announcements";
   }
 }
