@@ -1,19 +1,73 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
 
-group = 'bg.softuni.tabula'
+group = 'bg.softuni'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+}
 
 repositories {
 	mavenCentral()
 }
 
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+ext {
+	mysqlConnectorVersion = "8.0.20"
+	mapStructVersion = "1.3.1.Final"
+	lombokVersion = "1.18.12"
+	webjarsLocatorVersion = '0.40'
+	jQueryVersion = '3.5.1'
+	popperJsVersion = '2.0.2'
+	bootstrapVersion = '4.5.0'
+}
+
+dependencyManagement {
+	dependencies {
+		dependencySet(group:'org.mapstruct', version: "${mapStructVersion}") {
+			entry 'mapstruct'
+			entry 'mapstruct-processor'
+		}
+		dependency "org.projectlombok:lombok:${lombokVersion}"
+		dependency "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+	}
+}
+
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.security:spring-security-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.liquibase:liquibase-core'
+
+	compileOnly "org.webjars:webjars-locator:${webjarsLocatorVersion}"
+	compileOnly "org.webjars:jquery:${jQueryVersion}"
+	compileOnly "org.webjars:popper.js:${popperJsVersion}"
+	compileOnly "org.webjars:bootstrap:${bootstrapVersion}"
+
+	compileOnly "org.mapstruct:mapstruct"
+	compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.mapstruct:mapstruct-processor"
+	annotationProcessor "org.projectlombok:lombok"
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	runtimeOnly "mysql:mysql-connector-java"
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
