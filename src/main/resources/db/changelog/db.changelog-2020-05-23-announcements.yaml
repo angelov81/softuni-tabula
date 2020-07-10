@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-announcements-table
+      author: Lachezar Balev
+      changes:
+        - createTable:
+            tableName: announcements
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_on
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_on
+                  type: datetime
+                  constraints:
+                    nullable: false
