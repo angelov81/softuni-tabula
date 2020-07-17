@@ -11,9 +11,8 @@ public class AnnouncementCleanupScheduler {
   private AnnouncementService announcementService;
 
   //cleans up old announcements.
-  @Scheduled(cron = "0 0 2 ? * SUN")
+  @Scheduled(cron = "${tabula.clean-up}")
   public void cleanUpOldAnnouncements() {
     announcementService.cleanUpOldAnnouncements();
   }
-
 }
