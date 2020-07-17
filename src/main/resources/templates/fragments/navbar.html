@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <link crossorigin="anonymous"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -36,7 +38,7 @@
       <li class="nav-item" th:classappend="${activeTab == 'events'}? 'active'">
         <a class="nav-link" th:href="@{/events}">Events</a>
       </li>
-      <li class="nav-item" th:classappend="${activeTab == 'stats'}? 'active'">
+      <li sec:authorize="hasRole('ADMIN')" class="nav-item" th:classappend="${activeTab == 'stats'}? 'active'">
         <a class="nav-link" th:href="@{/stats}">Statistics</a>
       </li>
     </ul>
