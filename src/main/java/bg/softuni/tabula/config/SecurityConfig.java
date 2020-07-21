@@ -1,6 +1,7 @@
 package bg.softuni.tabula.config;
 
 
+import bg.softuni.tabula.users.OAuth2UserAuthSuccessHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -21,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   public final UserDetailsService tabulaUserDetailsService;
+
+  public final OAuth2UserAuthSuccessHandler oAuth2UserAuthSuccessHandler;
 
   private final PasswordEncoder passwordEncoder;
 
@@ -43,7 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           logoutUrl("/logout").
           logoutSuccessUrl("/login").
           invalidateHttpSession(true).
-          deleteCookies("JSESSIONID");
+          deleteCookies("JSESSIONID").
+        and().
+          oauth2Login().
+          loginPage("/login").
+          successHandler(oAuth2UserAuthSuccessHandler);
   }
 
   @Autowired
