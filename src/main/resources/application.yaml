@@ -11,13 +11,13 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          facebook:
-#            client-id: 596493257866350
-#            client-secret: 94406040e61d257c47ec385fc253dc4c
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: <your-app-id-here>
+            client-secret: <your-secret-here>
   thymeleaf:
     cache: false
   mvc:

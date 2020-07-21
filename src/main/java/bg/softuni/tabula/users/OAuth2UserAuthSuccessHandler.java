@@ -5,7 +5,11 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -14,9 +18,12 @@ import org.springframework.stereotype.Component;
 public class OAuth2UserAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
   private final UserService userService;
+  private final UserDetailsService userDetailsService;
 
-  public OAuth2UserAuthSuccessHandler(UserService userService) {
+  public OAuth2UserAuthSuccessHandler(UserService userService,
+      UserDetailsService userDetailsService) {
     this.userService = userService;
+    this.userDetailsService = userDetailsService;
 
     setDefaultTargetUrl("/home");
   }
@@ -35,6 +42,16 @@ public class OAuth2UserAuthSuccessHandler extends SavedRequestAwareAuthenticatio
               getAttribute("email");
 
       UserEntity userEntity = userService.getOrCreateUser(email);
+      UserDetails userDetails = userDetailsService.loadUserByUsername(userEntity.getEmail());
+
+      authentication = new UsernamePasswordAuthenticationToken(
+        userDetails,
+        null,
+        userDetails.getAuthorities()
+      );
+
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+
     }
     super.onAuthenticationSuccess(request, response, authentication);
   }
