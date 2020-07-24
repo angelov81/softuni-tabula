@@ -32,14 +32,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.
         authorizeRequests().
         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-        antMatchers("/login**").permitAll().
+        antMatchers("/login**", "/login-error**").permitAll().
         antMatchers("/**").
         authenticated().
         and().
           formLogin().
           loginPage("/login").
           loginProcessingUrl("/login/authenticate").
-          failureForwardUrl("/login?param.error=bad_credentials").
+          failureForwardUrl("/login-error").
           successForwardUrl("/home").
         and().
           logout().
