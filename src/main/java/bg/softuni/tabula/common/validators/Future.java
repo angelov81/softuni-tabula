@@ -1,22 +1,18 @@
-package bg.softuni.tabula.registration.model;
+package bg.softuni.tabula.common.validators;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Type;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ElementType.TYPE})
+@Constraint(validatedBy = FutureValidator.class)
+@Target( {ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = FieldMatchValidator.class)
-public @interface FieldMatch {
+public @interface Future {
 
-  String message() default "The two fields do not match";
-  String first();
-  String second();
-
+  String message() default "The date should be in the future!";
   Class<?>[] groups() default {};
   Class<? extends Payload>[] payload() default {};
 }

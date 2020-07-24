@@ -1,7 +1,7 @@
 package bg.softuni.tabula.registration.model;
 
+import bg.softuni.tabula.common.validators.FieldMatch;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.time.Instant;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;

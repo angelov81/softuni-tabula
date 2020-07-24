@@ -1,4 +1,4 @@
-package bg.softuni.tabula.events.model;
+package bg.softuni.tabula.common.validators;
 
 import java.time.LocalDateTime;
 import javax.validation.ConstraintValidator;
