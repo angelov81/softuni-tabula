@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container center">
+  <!-- FACEBOOK SIGNIN -->
+  <div class="card">
+    <article class="card-body">
+      <form th:action="@{/login/authenticate}" method="post">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              class="form-control"
+              id="email"/>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              class="form-control"
+              id="password"/>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <label for="repeatPassword">Repeat Password</label>
+          <input
+              name="repeatPassword"
+              type="password"
+              placeholder="Repeat password"
+              class="form-control"
+              id="repeatPassword"/>
+        </div> <!-- form-group// -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </div> <!-- form-group// -->
+          </div>
+        </div> <!-- .row// -->
+      </form>
+    </article>
+  </div> <!-- card.// -->
+
+  <!-- Bootstap JS -->
+  <div th:replace="fragments/bootstrap-js :: bootstrap-js"></div>
+  <!-- EO: Bootstap JS -->
+</div>
+</body>
+</html>
