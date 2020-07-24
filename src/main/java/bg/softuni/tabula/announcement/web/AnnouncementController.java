@@ -36,8 +36,10 @@ public class AnnouncementController {
   @GetMapping("/new")
   public String newAnnouncement(Model model) {
 
-    AnnouncementDTO formData = (AnnouncementDTO)model.getAttribute("formData");
-    if (formData == null) {
+    AnnouncementDTO formData;
+    if (model.containsAttribute("formData")) {
+      formData = (AnnouncementDTO) model.getAttribute("formData");
+    }  else {
       formData = new AnnouncementDTO();
     }
 
