@@ -42,4 +42,8 @@ public class AnnouncementService {
     announcementRepository.save(announcementEntity);
   }
 
+  public void delete(Long announcementId) {
+    announcementRepository.deleteById(announcementId);
+  }
+
 }
