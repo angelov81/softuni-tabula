@@ -35,7 +35,13 @@ public class AnnouncementController {
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/new")
   public String newAnnouncement(Model model) {
-    model.addAttribute("formData", new AnnouncementDTO());
+
+    AnnouncementDTO formData = (AnnouncementDTO)model.getAttribute("formData");
+    if (formData == null) {
+      formData = new AnnouncementDTO();
+    }
+
+    model.addAttribute("formData", formData);
 
     return "announcement/new";
   }
@@ -43,9 +49,15 @@ public class AnnouncementController {
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/save")
   public String save(@Valid @ModelAttribute("formData") AnnouncementDTO announcementDTO,
-      BindingResult bindingResult) {
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes) {
+
     if (bindingResult.hasErrors()) {
-      return "announcement/new";
+      redirectAttributes.addFlashAttribute("formData", announcementDTO);
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.formData",
+          bindingResult);
+
+      return "redirect:/announcements/new";
     }
 
     announcementService.createOrUpdateAnnouncement(announcementDTO);
