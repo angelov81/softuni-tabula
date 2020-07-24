@@ -4,37 +4,51 @@
 <body>
 
 <div class="container center">
-  <!-- FACEBOOK SIGNIN -->
   <div class="card">
     <article class="card-body">
-      <form th:action="@{/login/authenticate}" method="post">
+      <form th:action="@{/registration}" method="post" th:object="${formData}">
         <div class="form-group">
           <label for="email">Email</label>
           <input
               name="email"
+              th:value="*{email}"
+              th:errorclass="is-invalid"
               type="email"
               placeholder="Email"
               class="form-control"
               id="email"/>
-        </div> <!-- form-group// -->
+          <div class="invalid-feedback">
+            The user email should be valid and such user should not exist in the system.
+          </div>
+        </div>
+        <!-- form-group// -->
         <div class="form-group">
           <label for="password">Password</label>
           <input
               name="password"
               type="password"
+              th:errorclass="is-invalid"
               placeholder="Password"
               class="form-control"
               id="password"/>
+          <div class="invalid-feedback">
+            Both passwords should match.
+          </div>
         </div> <!-- form-group// -->
         <div class="form-group">
           <label for="repeatPassword">Repeat Password</label>
           <input
               name="repeatPassword"
               type="password"
+              th:errorclass="is-invalid"
               placeholder="Repeat password"
               class="form-control"
               id="repeatPassword"/>
-        </div> <!-- form-group// -->
+          <div class="invalid-feedback">
+            Both passwords should match.
+          </div>
+        </div>
+        <!-- form-group// -->
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
