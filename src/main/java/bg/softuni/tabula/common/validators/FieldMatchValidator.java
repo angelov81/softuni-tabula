@@ -32,9 +32,11 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
     if (!valid) {
       context.
           buildConstraintViolationWithTemplate(message).
-          //TODO: check why cannot add two property nodes
-          addPropertyNode(firstFieldName).
-          addConstraintViolation().
+            addPropertyNode(firstFieldName).
+            addConstraintViolation().
+          buildConstraintViolationWithTemplate(message).
+            addPropertyNode(secondFieldName).
+            addConstraintViolation().
           disableDefaultConstraintViolation();
     }
 
