@@ -1,4 +1,4 @@
-package bg.softuni.tabula.stats;
+package bg.softuni.tabula.integration.stats;
 
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;

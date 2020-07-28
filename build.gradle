@@ -59,7 +59,7 @@ dependencies {
 	compileOnly "org.webjars:popper.js:${popperJsVersion}"
 	compileOnly "org.webjars:bootstrap:${bootstrapVersion}"
 
-	compileOnly "org.mapstruct:mapstruct"
+	implementation "org.mapstruct:mapstruct"
 	compileOnly "org.projectlombok:lombok"
 	annotationProcessor "org.mapstruct:mapstruct-processor"
 	annotationProcessor "org.projectlombok:lombok"
@@ -71,6 +71,11 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	testImplementation "org.springframework.security:spring-security-test"
+//	testImplementation 'org.mockito:mockito-core:2.27.0'
+//	testImplementation 'org.mockito:mockito-junit-jupiter:2.27.0'
+	testRuntime('org.hsqldb:hsqldb')
 }
 
 test {

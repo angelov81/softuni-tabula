@@ -1,4 +1,4 @@
-package bg.softuni.tabula.stats;
+package bg.softuni.tabula.integration.stats;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
