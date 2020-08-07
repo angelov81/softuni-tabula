@@ -43,26 +43,30 @@ public class UserDetailsServiceImplTest {
     testUserEntity.setPasswordHash("abcdef");
     testUserEntity.setRoles(List.of(testRoleEntity));
 
-    when(mockUserRepository.findOneByEmail(TEST_USER_NAME_EXISTS)).
-        thenReturn(Optional.of(testUserEntity));
-
     serviceToTest = new UserDetailsServiceImpl(mockUserRepository);
   }
 
   @Test
   public void testUserNotFound() {
+
+    when(mockUserRepository.findOneByEmail(TEST_USER_NAME_NOT_EXISTS)).
+        thenReturn(Optional.empty());
+
     Assertions.assertThrows(UsernameNotFoundException.class, () -> {
       serviceToTest.loadUserByUsername(TEST_USER_NAME_NOT_EXISTS);
     });
   }
 
-  //TODO:
-//  @Test
-//  public void testUserFound() {
-//    UserDetails actualDetails = serviceToTest.loadUserByUsername(TEST_USER_NAME_EXISTS);
-//
-//    Assertions.assertEquals(testUserEntity.getEmail(), actualDetails.getUsername());
-//  }
+  @Test
+  public void testUserFound() {
+
+    when(mockUserRepository.findOneByEmail(TEST_USER_NAME_EXISTS)).
+        thenReturn(Optional.of(testUserEntity));
+
+    UserDetails actualDetails = serviceToTest.loadUserByUsername(TEST_USER_NAME_EXISTS);
+
+    Assertions.assertEquals(testUserEntity.getEmail(), actualDetails.getUsername());
+  }
 
 
 }
